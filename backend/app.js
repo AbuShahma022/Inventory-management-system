@@ -3,6 +3,7 @@ import express from "express";
 import router from "./src/routes/api.js"; 
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import bodyParser from "body-parser";
 
 // Security Middleware Imports
 import rateLimit from "express-rate-limit";
@@ -15,14 +16,21 @@ import cors from "cors";
 dotenv.config();
 // Express App Init
 const app = express();
+// Body Parser
+app.use(bodyParser.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 // Security Middlewares Implement
 app.use(cors());
 app.use(helmet());
-app.use(mongoSanitize());
+app.use((req, res, next) => {
+  // sanitize only body and params
+  req.body = mongoSanitize.sanitize(req.body);
+  req.params = mongoSanitize.sanitize(req.params);
+  next();
+});
 app.use(hpp());
-// Body Parser
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
 // Rate Limiter
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
