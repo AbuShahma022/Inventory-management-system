@@ -78,6 +78,18 @@ router.post("/UpdateSupplier/:id", authVerifyMiddleware, UpdateSupplier);
 router.get("/SupplierList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ListSupplier);
 router.get ("/SupplierDropDown", authVerifyMiddleware, DropDownSupplier);
 
+// Expence Type Routes
+import {
+    CreateExpenceType,
+    UpdateExpenceType,
+    ExpenceTypeList,
+    DropDownExpenceType
+} from "../controller/Expences/ExpenceTypeController.js";
+
+router.post("/CreateExpenceType", authVerifyMiddleware, CreateExpenceType);
+router.post("/UpdateExpenceType/:id", authVerifyMiddleware, UpdateExpenceType);
+router.get("/ExpenceTypeList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ExpenceTypeList);
+router.get ("/ExpenceTypeDropDown", authVerifyMiddleware, DropDownExpenceType);
 
 
 export default router;
