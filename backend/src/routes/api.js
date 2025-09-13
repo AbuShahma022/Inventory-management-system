@@ -91,5 +91,15 @@ router.post("/UpdateExpenceType/:id", authVerifyMiddleware, UpdateExpenceType);
 router.get("/ExpenceTypeList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ExpenceTypeList);
 router.get ("/ExpenceTypeDropDown", authVerifyMiddleware, DropDownExpenceType);
 
+// Expence Routes
+import {
+    CreateExpense,
+    UpdateExpense,
+    ExpenseList
+} from "../controller/Expences/ExpensesControler.js";
+router.post("/CreateExpense", authVerifyMiddleware, CreateExpense);
+router.post("/UpdateExpense/:id", authVerifyMiddleware, UpdateExpense);
+router.get("/ExpenseList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ExpenseList);
+
 
 export default router;
