@@ -4,5 +4,5 @@ const DataSchema = mongoose.Schema({
     Name : { type: String, required: true, unique: true },
     CreatedDate : { type: Date, default: Date.now()}
 },{versionKey: false});
-const CategoriesModel = mongoose.model("Categories", DataSchema);
+const CategoriesModel = mongoose.model("categories", DataSchema);
 export default CategoriesModel;

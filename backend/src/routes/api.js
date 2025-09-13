@@ -101,5 +101,16 @@ router.post("/CreateExpense", authVerifyMiddleware, CreateExpense);
 router.post("/UpdateExpense/:id", authVerifyMiddleware, UpdateExpense);
 router.get("/ExpenseList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ExpenseList);
 
+// Product Routes
+import {
+    CreateProduct,
+    UpdateProduct,
+    ListProduct
+} from "../controller/Products/ProductsController.js";
+
+router.post("/CreateProduct", authVerifyMiddleware, CreateProduct);
+router.post("/UpdateProduct/:id", authVerifyMiddleware, UpdateProduct);
+router.get("/ProductList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ListProduct);
+
 
 export default router;
