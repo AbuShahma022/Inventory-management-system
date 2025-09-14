@@ -112,5 +112,14 @@ router.post("/CreateProduct", authVerifyMiddleware, CreateProduct);
 router.post("/UpdateProduct/:id", authVerifyMiddleware, UpdateProduct);
 router.get("/ProductList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ListProduct);
 
+// Purchase Routes
+import {
+    CreatePurchase,
+    PurchaseList
+} from "../controller/Purchases/PurchaseController.js";
+router.post("/CreatePurchase", authVerifyMiddleware, CreatePurchase);
+router.get("/PurchaseList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, PurchaseList);
+
+
 
 export default router;

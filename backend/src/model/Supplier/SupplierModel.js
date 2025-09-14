@@ -8,5 +8,5 @@ const DataSchema = mongoose.Schema({
     CreatedDate : { type: Date, default: Date.now()}
 
 },{versionKey: false} );
-const SupplierModel = mongoose.model("Supplier", DataSchema);
+const SupplierModel = mongoose.model("supplier", DataSchema);
 export default SupplierModel;
