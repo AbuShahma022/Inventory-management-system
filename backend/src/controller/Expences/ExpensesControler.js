@@ -2,6 +2,7 @@ import ExpenseModel from "../../model/Expences/ExpenseModel.js";
 import CreateService from "../../services/CommonService/CreateService.js";
 import UpdateService from "../../services/CommonService/UpdateService.js";
 import ListOneService from "../../services/CommonService/ListOneService.js";
+import DeleteService from "../../services/CommonService/DeleteService.js";
 
 const CreateExpense = async (req, res) => {
     let result = await CreateService(req, ExpenseModel);
@@ -21,8 +22,13 @@ const ExpenseList = async (req, res) => {
     res.status(200).json(result);
 }
 
+const DeleteExpense = async (req, res) => {
+    let result = await DeleteService(req, ExpenseModel);
+    res.status(200).json(result);
+}
 export{
     CreateExpense,
     UpdateExpense,
-    ExpenseList
+    ExpenseList,
+    DeleteExpense
 }

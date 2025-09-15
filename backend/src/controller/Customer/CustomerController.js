@@ -3,6 +3,10 @@ import CreateService from "../../services/CommonService/CreateService.js";
 import UpdateService from "../../services/CommonService/UpdateService.js";
 import ListService from "../../services/CommonService/ListService.js";
 import DropDownService from "../../services/CommonService/DropDownService.js";
+import SalesModel from "../../model/Sales/SalesModel.js";
+import DeleteService from "../../services/CommonService/DeleteService.js";
+import CheckAssociationService from "../../services/CommonService/CheckAssociationService.js";
+
 
 // Create Customer
 const CreateCustomer = async (req, res) => {
@@ -52,9 +56,23 @@ const DropDownCustomer = async (req, res) => {
     }
 }
 
+const DeleteCustomer = async (req,res)=>{
+    let DeleteId = req.params.id;
+    
+    let CheckAssociate = await CheckAssociationService({CustomerId:DeleteId},SalesModel);
+    if (CheckAssociate){
+        return res.status(200).json({status:"associate",message:"This Customer is associated with other Sales, you can not delete this."});
+
+    }else {
+        let Result = await DeleteService(req,CustomerModel);
+        return res.status(200).json(Result);
+    }
+}
+
 export {
     CreateCustomer,
     UpdateCustomer,
     ListCustomer,
-    DropDownCustomer
+    DropDownCustomer,
+    DeleteCustomer
 }

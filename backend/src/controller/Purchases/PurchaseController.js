@@ -2,6 +2,7 @@ import PurchaseModel  from "../../model/Purchases/PurchasesModel.js";
 import PurchaseProductModel  from "../../model/Purchases/PurchaseProductModel.js";
 import CreateParentChildService from "../../services/CommonService/CreateParentChildService.js";
 import ListOneService from "../../services/CommonService/ListOneService.js";
+import DeleteParentChildService from "../../services/CommonService/DeleteParentChildService.js";
 
  const CreatePurchase = async (req,res)=>{
     let result = await CreateParentChildService(req,PurchaseModel,PurchaseProductModel,"PurchaseId");
@@ -17,8 +18,14 @@ const PurchaseList = async (req,res)=>{
     res.status(200).json(result);
 }
 
+const DeletePurchase = async (req,res)=>{
+    let result = await DeleteParentChildService(req,PurchaseModel,PurchaseProductModel,"PurchaseId");
+    res.status(200).json(result);
+}
+
 export {
     CreatePurchase,
-    PurchaseList
+    PurchaseList,
+    DeletePurchase
 }
 

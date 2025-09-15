@@ -3,6 +3,10 @@ import CreateService from "../../services/CommonService/CreateService.js";
 import ListService from "../../services/CommonService/ListService.js";
 import UpdateService from "../../services/CommonService/UpdateService.js";
 import DropDownService from "../../services/CommonService/DropDownService.js";
+import DeleteService from "../../services/CommonService/DeleteService.js";
+import CheckAssociationService from "../../services/CommonService/CheckAssociationService.js";
+import ProductModel from "../../model/Products/ProductModel.js";
+
 
 // Create Brand
 const CreateBrand = async (req,res)=>{
@@ -31,9 +35,25 @@ const DropDownBrand = async (req,res)=>{
     return res.status(200).json(result);
 }
 
+const DeleteBrand = async (req,res)=>{
+    let DeleteId = req.params.id;
+    
+    let CheckAssociate = await CheckAssociationService( { BrandId:DeleteId },ProductModel);
+
+    if (CheckAssociate){
+        return res.status(200).json({status:"associate",message:"This Brand is associated with other Product, you can not delete this."});
+    } else{
+        let Result = await DeleteService(req,DataModel);
+        return res.status(200).json(Result);
+    }
+    
+
+}
+
 export {
     CreateBrand,
     UpdateBrand,
     ListBrand,
-    DropDownBrand
+    DropDownBrand,
+    DeleteBrand
 };

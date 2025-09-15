@@ -3,6 +3,11 @@ import CreateService from "../../services/CommonService/CreateService.js";
 import UpdateService from "../../services/CommonService/UpdateService.js";
 import ListService from "../../services/CommonService/ListService.js";
 import DropDownService from "../../services/CommonService/DropDownService.js";
+import DeleteService from "../../services/CommonService/DeleteService.js";
+import ExpenseModel from "../../model/Expences/ExpenseModel.js";
+import CheckAssociationService from "../../services/CommonService/CheckAssociationService.js";
+
+
 
 
 const CreateExpenceType = async (req, res) => {
@@ -28,9 +33,22 @@ const DropDownExpenceType = async (req, res) => {
     res.status(200).json(result);
 }
 
+const DeleteExpenceType = async (req, res) => {
+    let DeleteId = req.params.id;
+    
+    let CheackAssociteExpense = await CheckAssociationService( {TypeId:DeleteId}, ExpenseModel );
+    if(CheackAssociteExpense){
+        res.status(200).json({status : false, message : "This record is associated with Expense."});
+    }else {
+        let result = await DeleteService(req, ExpenceTypeModel);
+        res.status(200).json(result);
+    }
+
+}
 export {
     CreateExpenceType,
     UpdateExpenceType,
     ExpenceTypeList,
-    DropDownExpenceType
+    DropDownExpenceType,
+    DeleteExpenceType
 }

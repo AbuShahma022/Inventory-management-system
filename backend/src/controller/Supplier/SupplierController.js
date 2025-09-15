@@ -3,6 +3,10 @@ import CreateService from "../../services/CommonService/CreateService.js";
 import UpdateService from "../../services/CommonService/UpdateService.js";
 import ListService from "../../services/CommonService/ListService.js";
 import DropDownService from "../../services/CommonService/DropDownService.js";
+import PurchasesModel from "../../model/Purchases/PurchasesModel.js";
+import DeleteService from "../../services/CommonService/DeleteService.js";
+import CheckAssociationService from "../../services/CommonService/CheckAssociationService.js";
+
 
 const CreateSupplier = async (req, res) => {
     try {
@@ -50,9 +54,23 @@ const DropDownSupplier = async (req, res) => {
     }
 }
 
+const DeleteSupplier = async (req, res) => {
+    let DeleteId = req.params.id;
+    
+    let AssociationPurchase = await CheckAssociationService({SupplierId:DeleteId},PurchasesModel);
+    if(AssociationPurchase){
+        res.status(200).json({status:"error", message:"This Supplier is associated with Purchases. You cannot delete this Supplier."});
+
+    } else {
+        let result = await DeleteService(req, SupplierModel);
+        res.status(200).json(result);
+    }
+}
+
 export {
     CreateSupplier,
     UpdateSupplier,
     ListSupplier,
-    DropDownSupplier
+    DropDownSupplier,
+    DeleteSupplier
 }
