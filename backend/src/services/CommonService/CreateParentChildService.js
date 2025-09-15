@@ -8,26 +8,26 @@ const CreateParentChildService = async (req,PurchaseModel ,PurchaseProductModel 
         await session.startTransaction();
 
         //Create Parent
-        const PurchaseSummery =  req.body["PurchaseSummery"];
-        PurchaseSummery.UserEmail = req.header("email");
-        const PurchaseSummeryCreation = await PurchaseModel .create([PurchaseSummery],{session});
+        const Parent=  req.body["Parent"];
+        Parent.UserEmail = req.header("email");
+        const ParentCreation = await PurchaseModel .create([Parent],{session});
 
         //Create Child
-        let PurchaseProduct = req.body["PurchaseProduct"];
+        let Child = req.body["Child"];
          await Promise.all(
-            PurchaseProduct.map(async (element) => {
-                element[JoinPropertyName] = PurchaseSummeryCreation[0]._id;
+            Child.map(async (element) => {
+                element[JoinPropertyName] = ParentCreation[0]._id;
                 element.UserEmail = req.header("email");
             })
         );
 
-        let PurchaseProductCreation = await PurchaseProductModel.insertMany(PurchaseProduct,{session});
+        let ChildCreation = await PurchaseProductModel.insertMany(Child,{session});
 
         //Commit Transaction
         await session.commitTransaction();
         session.endSession();
 
-        return {status : "success", data : {PurchaseSummery  : PurchaseSummeryCreation , PurchaseProduct : PurchaseProductCreation}};
+        return {status : "success", data : {Parent : ParentCreation , Child : ChildCreation}};
 
 
         

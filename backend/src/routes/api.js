@@ -120,6 +120,22 @@ import {
 router.post("/CreatePurchase", authVerifyMiddleware, CreatePurchase);
 router.get("/PurchaseList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, PurchaseList);
 
+// Sales Routes
+import {
+    CreateSales,
+    SalesList
+} from "../controller/Sales/SalesController.js"
+router.post("/CreateSales", authVerifyMiddleware, CreateSales);
+router.get("/SalesList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, SalesList);
+
+// Return Routes
+import {
+    CreateReturn,
+    ReturnList
+} from "../controller/Return/ReturnController.js"
+router.post("/CreateReturn", authVerifyMiddleware, CreateReturn);
+router.get("/ReturnList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ReturnList);
+
 
 
 export default router;
