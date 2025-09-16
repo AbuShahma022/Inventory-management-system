@@ -6,5 +6,5 @@ const DataSchema = mongoose.Schema({
 
 
 },{versionKey:false});
-const ExpenceTypeModel = mongoose.model("expencetypes", DataSchema);
+const ExpenceTypeModel = mongoose.model("expensetypes", DataSchema);
 export default ExpenceTypeModel;

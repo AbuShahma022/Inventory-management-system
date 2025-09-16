@@ -157,6 +157,13 @@ router.post("/CreateReturn", authVerifyMiddleware, CreateReturn);
 router.get("/ReturnList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ReturnList);
 router.get("/DeleteReturn/:id", authVerifyMiddleware, DeleteReturn);
 
+// Report Routes
+import { ExpenseByDate,PurchaseByDate,ReturnByDate,SalesByDate } from "../controller/Report/ReportController.js";
+router.post("/ExpenseByDate", authVerifyMiddleware, ExpenseByDate);
+router.post("/PurchaseByDate", authVerifyMiddleware, PurchaseByDate);
+router.post("/ReturnByDate", authVerifyMiddleware, ReturnByDate);
+router.post("/SalesByDate", authVerifyMiddleware, SalesByDate);
+
 
 
 export default router;
