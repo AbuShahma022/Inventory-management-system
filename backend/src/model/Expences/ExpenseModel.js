@@ -5,7 +5,7 @@ const DataSchema = mongoose.Schema({
     TypeId : {type : mongoose.Schema.Types.ObjectId, ref: 'ExpenceType' },
     Amount : { type: Number, required: true },
     Note : { type: String },
-    CreateDate : { type: Date, default: Date.now ()}
+    CreatedDate : { type: Date, default: Date.now ()}
 
 },{versionKey: false});
 const ExpenseModel = mongoose.model("Expense", DataSchema);

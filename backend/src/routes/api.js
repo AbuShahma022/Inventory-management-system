@@ -164,6 +164,20 @@ router.post("/PurchaseByDate", authVerifyMiddleware, PurchaseByDate);
 router.post("/ReturnByDate", authVerifyMiddleware, ReturnByDate);
 router.post("/SalesByDate", authVerifyMiddleware, SalesByDate);
 
+// Summary Routes
+import { ExpenceSummaryController,
+    PurchaseSummaryController,
+    ReturnSummaryController,
+    SalesSummaryController
+    
+ } from "../controller/Summary/SummaryController.js";
+
+router.get("/ExpenceSummary", authVerifyMiddleware, ExpenceSummaryController);
+router.get("/PurchaseSummary", authVerifyMiddleware, PurchaseSummaryController);
+router.get("/ReturnSummary", authVerifyMiddleware, ReturnSummaryController);
+router.get("/SalesSummary", authVerifyMiddleware, SalesSummaryController);
+
+
 
 
 export default router;
