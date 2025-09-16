@@ -7,6 +7,7 @@ import SalesModel from "../../model/Sales/SalesModel.js";
 import PurchaseModel from "../../model/Purchases/PurchasesModel.js";
 import DeleteService from "../../services/CommonService/DeleteService.js";
 import CheckAssociationService from "../../services/CommonService/CheckAssociationService.js";
+import DetailById from "../../services/CommonService/DetailByIdService.js";
 
 
 
@@ -27,6 +28,11 @@ const ListProduct = async (req, res) => {
     let JoinStage2 = {$lookup: {from:"categories",localField:"CategoryId",foreignField:"_id",as:"Category"}};
     let SearchArray = [{"Name":SearchRgx},{"Unit":SearchRgx},{"Brands.Name":SearchRgx},{"Category.Name":SearchRgx}];
     let result = await ListTwoJoinService(req,ProductModel,SearchArray,JoinStage1,JoinStage2);
+    res.status(200).json(result);
+}
+
+const DetailProduct = async (req, res) => {
+    let result = await DetailById(req, ProductModel);
     res.status(200).json(result);
 }
 
@@ -59,5 +65,6 @@ export {
     CreateProduct,
     UpdateProduct,
     ListProduct,
-    DeleteProduct
+    DeleteProduct,
+    DetailProduct
 }

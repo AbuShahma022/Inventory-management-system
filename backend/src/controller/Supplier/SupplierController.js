@@ -6,52 +6,46 @@ import DropDownService from "../../services/CommonService/DropDownService.js";
 import PurchasesModel from "../../model/Purchases/PurchasesModel.js";
 import DeleteService from "../../services/CommonService/DeleteService.js";
 import CheckAssociationService from "../../services/CommonService/CheckAssociationService.js";
+import DetailById from "../../services/CommonService/DetailByIdService.js";
 
 
 const CreateSupplier = async (req, res) => {
-    try {
+    
         const result = await CreateService(req, SupplierModel);
         res.status(200).json(result);
         
-    } catch (error) {
-        res.status(400).json({ data: error.toString() });
+   
         
-    }
 }
 const UpdateSupplier = async (req, res) => {
-    try {
+    
         let result = await UpdateService(req, SupplierModel);
         res.status(200).json(result);
         
-    } catch (error) {
-        res.status(400).json({ data: error.toString() });
-        
-    }
+   
 }
 
 const ListSupplier = async (req, res) => {
-    try {
+    
         let SearchRgx = {"$regex": req.params.searchKeyword, "$options": "i"};
         let SearchArray = [{ Name: SearchRgx }, { Email: SearchRgx }, { Phone: SearchRgx },{ Address: SearchRgx }];
         let result = await ListService(req, SupplierModel, SearchArray);
         res.status(200).json(result);
         
-    } catch (error) {
-        res.status(400).json({ data: error.toString() });
-        
-    }
+  
+}
+
+const DetailSupplier = async (req, res) => {
+    let result = await DetailById(req, SupplierModel);
+    return res.status(200).json(result);
 }
 
 const DropDownSupplier = async (req, res) => {
-    try {
+    
         let result = await DropDownService(req, SupplierModel,{_id:1, Name:1,});
         res.status(200).json(result);
 
-        
-    } catch (error) {
-        res.status(400).json({ data: error.toString() });
-        
-    }
+   
 }
 
 const DeleteSupplier = async (req, res) => {
@@ -72,5 +66,6 @@ export {
     UpdateSupplier,
     ListSupplier,
     DropDownSupplier,
-    DeleteSupplier
+    DeleteSupplier,
+    DetailSupplier
 }

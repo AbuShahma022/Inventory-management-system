@@ -5,6 +5,7 @@ import UpdateService from "../../services/CommonService/UpdateService.js";
 import DropDownService from "../../services/CommonService/DropDownService.js";
 import DeleteService from "../../services/CommonService/DeleteService.js";
 import CheckAssociationService from "../../services/CommonService/CheckAssociationService.js";
+import DetailById from "../../services/CommonService/DetailByIdService.js";
 import ProductModel from "../../model/Products/ProductModel.js";
 
 
@@ -35,6 +36,12 @@ const DropDownBrand = async (req,res)=>{
     return res.status(200).json(result);
 }
 
+//DetailByid Brand
+const BrandDetailsById=async (req, res) => {
+    let Result= await DetailById(req,DataModel)
+    res.status(200).json(Result)
+}
+
 const DeleteBrand = async (req,res)=>{
     let DeleteId = req.params.id;
     
@@ -55,5 +62,6 @@ export {
     UpdateBrand,
     ListBrand,
     DropDownBrand,
-    DeleteBrand
+    DeleteBrand,
+    BrandDetailsById
 };

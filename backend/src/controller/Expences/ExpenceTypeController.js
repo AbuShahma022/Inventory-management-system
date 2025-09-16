@@ -6,6 +6,7 @@ import DropDownService from "../../services/CommonService/DropDownService.js";
 import DeleteService from "../../services/CommonService/DeleteService.js";
 import ExpenseModel from "../../model/Expences/ExpenseModel.js";
 import CheckAssociationService from "../../services/CommonService/CheckAssociationService.js";
+import DetailById from "../../services/CommonService/DetailByIdService.js";
 
 
 
@@ -27,6 +28,14 @@ const ExpenceTypeList = async (req, res) => {
     let result = await ListService(req, ExpenceTypeModel, SearchArray);
     res.status(200).json(result);
 }
+
+
+const DetailByIdExpenceType = async (req, res) => {
+    let result = await DetailById(req, ExpenceTypeModel);
+    res.status(200).json(result);
+}
+
+
 
 const DropDownExpenceType = async (req, res) => {
     let result = await DropDownService(req, ExpenceTypeModel,{_id:1, Name:1});
@@ -50,5 +59,6 @@ export {
     UpdateExpenceType,
     ExpenceTypeList,
     DropDownExpenceType,
-    DeleteExpenceType
+    DeleteExpenceType,
+    DetailByIdExpenceType
 }

@@ -3,6 +3,7 @@ import ReturnProductModel from '../../model/Return/ReturnsProductModel.js';
 import CreateParentChildService from '../../services/CommonService/CreateParentChildService.js';
 import ListOneService from '../../services/CommonService/ListOneService.js';
 import DeleteParentChildService from '../../services/CommonService/DeleteParentChildService.js';
+import DetailById from '../../services/CommonService/DetailByIdService.js';
 
 const CreateReturn = async (req, res) => {
     let result = await CreateParentChildService(req, ReturnModel, ReturnProductModel, "ReturnId");
@@ -17,6 +18,12 @@ const ReturnList = async (req, res) => {
     return res.status(200).json(result);
 }
 
+const DetailReturn = async (req, res) => {
+    let result = await DetailById(req, ReturnModel);
+    return res.status(200).json(result);
+}
+
+
 const DeleteReturn = async (req, res) => {
     let result = await DeleteParentChildService(req, ReturnModel, ReturnProductModel, "ReturnId");
     return res.status(200).json(result);
@@ -24,5 +31,6 @@ const DeleteReturn = async (req, res) => {
 export {
     CreateReturn,
     ReturnList,
-    DeleteReturn
+    DeleteReturn,
+    DetailReturn
 }

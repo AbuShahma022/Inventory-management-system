@@ -3,6 +3,7 @@ import SalesProductModel from "../../model/Sales/SalesProductModel.js";
 import CreateParentChildService from "../../services/CommonService/CreateParentChildService.js";
 import ListOneService from "../../services/CommonService/ListOneService.js";
 import DeleteParentChildService from "../../services/CommonService/DeleteParentChildService.js";
+import DetailById from "../../services/CommonService/DetailByIdService.js";
 const CreateSales = async (req, res) => {
     
         let result = await CreateParentChildService(req, SalesModel, SalesProductModel, "SalesId");
@@ -17,6 +18,15 @@ const SalesList = async (req, res) => {
     let result = await ListOneService(req, SalesModel, SearchArray,JoinStage);
     return res.status(200).json(result);
 }
+
+const DetailSales = async (req, res) => {
+    let result = await DetailById(req, SalesModel);
+    return res.status(200).json(result);
+}
+
+
+
+
 const DeleteSales = async (req,res)=>{
     let result = await DeleteParentChildService(req,SalesModel,SalesProductModel,"SalesId");
     res.status(200).json(result);
@@ -25,5 +35,6 @@ const DeleteSales = async (req,res)=>{
 export {
     CreateSales,
     SalesList,
-    DeleteSales
+    DeleteSales,
+    DetailSales
 }
