@@ -4,7 +4,7 @@ import SendEmailUtility from "../../utility/SendEmailUtility.js";
 const userVerifyEmailService = async (req, DataModel) => {
   try {
     const email = req.params.email;
-    let otpCode = Math.floor(1000 + Math.random() * 9000); // 4-digit OTP
+    let otpCode = Math.floor(1000 + Math.random() * 900000); 
 
     // Check if user exists
     let userCount = await DataModel.aggregate([

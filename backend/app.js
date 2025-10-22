@@ -3,7 +3,7 @@ import express from "express";
 import router from "./src/routes/api.js"; 
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import bodyParser from "body-parser";
+
 
 // Security Middleware Imports
 import rateLimit from "express-rate-limit";
@@ -16,12 +16,19 @@ import cors from "cors";
 dotenv.config();
 // Express App Init
 const app = express();
+
+// Enable CORS
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
+
 // Body Parser
-app.use(bodyParser.json());
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+app.use(express.json({ limit: "100mb" }));
+app.use(express.urlencoded({ limit: "100mb", extended: true }));
 // Security Middlewares Implement
-app.use(cors());
+
 app.use(helmet());
 app.use((req, res, next) => {
   // sanitize only body and params
