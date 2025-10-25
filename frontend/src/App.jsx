@@ -14,6 +14,16 @@ const VerifyEmailPage = lazy(() => import("./Pages/Users/VerifyEmailPage"));
 const ResetPasswordPage = lazy(() => import("./Pages/Users/ResetPaswordPage"));
 const DashBoardPage = lazy(() => import("./Pages/DashBoard/DashBoardPage"));
 const CreatePasswordPage = lazy(() => import("./Pages/Users/CreatePasswordPage"));
+const BrandListPage = lazy(()=>import("./Pages/Brand/BrandListPage"))
+const CategoryListPage = lazy(()=>import("./Pages/Category/CategoryListPage"))
+const CustomerListPage = lazy(()=>import("./Pages/Customer/CustomerListPage"))
+const SupplierListPage = lazy(()=>import("./Pages/Supply/SupplierListPage"))
+const ExpenseTypeListPage = lazy(()=>import("./Pages/ExpenseType/ExpenseTypeListPage.jsx"))
+const ExpenseListPage = lazy(()=>import("./Pages/Expense/ExpenseListPage.jsx"))
+const ProductListPage = lazy(()=>import("./Pages/Product/ProductListPage.jsx"))
+const PurchaseListPage = lazy(()=>import("./Pages/Purchase/PurchaseListPage.jsx"))
+const SalesListPage = lazy(()=>import("./Pages/Sales/SalesListPage.jsx"))
+const ReturnListPage = lazy(()=>import("./Pages/Return/ReturnListPage.jsx"))
 
 function App() {
   const token = getToken();
@@ -29,6 +39,17 @@ function App() {
               <Route path="/" element={<DashBoardPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/brand/list" element={<BrandListPage />} />
+              <Route path="/category/list" element={<CategoryListPage />} />
+              <Route path="/customer/list" element={<CustomerListPage />} />
+              <Route path="/supplier/list" element={<SupplierListPage />} />
+              <Route path="/expense/type/list" element={<ExpenseTypeListPage />} />
+              <Route path="/expense/list" element={<ExpenseListPage />} />
+              <Route path="/product/list" element={<ProductListPage />} />
+              <Route path="/purchase/list" element={<PurchaseListPage />} />
+              <Route path="/sale/list" element={<SalesListPage />} />
+              <Route path="/return/list" element={<ReturnListPage />} />
+
             </>
           ) : (
             // ✅ Public routes

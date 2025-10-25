@@ -4,21 +4,17 @@ const ListOneService = async (req,DataModel,SearchArray,JoinStage)=>{
         let PageNo = Number(req.params.pageNo) || 1;
         let PerPage = Number(req.params.perPage) || 10;
         let SearchKey = req.params.searchKeyword || "";
-        const minAmount = Number(req.query.minAmount) || null;
-        const maxAmount = Number(req.query.maxAmount) || null;
+        
 
         let skipRow = (PageNo - 1) * PerPage;
 
-        let AmountFilter = {};
-    if (minAmount !== null && maxAmount !== null) {
-      AmountFilter = { Amount: { $gte: minAmount, $lte: maxAmount } };
-    }
+     
 
 
         let data;
 
         if(SearchKey !== "0"){
-            let SearchQueary = {$or: SearchArray, ...AmountFilter};
+            let SearchQueary = {$or: SearchArray};
             data = await DataModel.aggregate([
                 {$match: {UserEmail : UserEmail}},
                 JoinStage,

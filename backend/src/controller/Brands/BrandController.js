@@ -23,8 +23,8 @@ const UpdateBrand = async (req,res)=>{
 
 // List Brand
 const ListBrand = async (req,res)=>{
-    let SearchRgx = {$reges:req.params.searchKeyword,$options:"i"}
-    let SearchArray = {name:SearchRgx}
+    let SearchRgx = {$regex:req.params.searchKeyword,$options:"i"}
+    let SearchArray = [{Name:SearchRgx}]
     let result = await ListService(req,DataModel,SearchArray);
     return res.status(200).json(result);
 

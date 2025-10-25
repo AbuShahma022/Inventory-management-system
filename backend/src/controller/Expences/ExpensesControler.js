@@ -17,7 +17,7 @@ const UpdateExpense = async (req, res) => {
 const ExpenseList = async (req, res) => {
     let SeachRgx = {"$regex": req.params.searchKeyword, "$options": "i"};
     let SearchArray =[{"Note" : SeachRgx},{"Amount" : SeachRgx},{"type.Name" : SeachRgx}];
-    let JoinStage ={$lookup: {from : "expencetypes", localField: "TypeId", foreignField: "_id", as: "type"}};
+    let JoinStage ={$lookup: {from : "expensetypes", localField: "TypeId", foreignField: "_id", as: "type"}};
 
     let result = await ListOneService(req, ExpenseModel, SearchArray, JoinStage);
     res.status(200).json(result);
