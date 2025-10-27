@@ -1,11 +1,11 @@
 import SalesProductModel from "../../model/Sales/SalesProductModel.js";
 
 const SalesReport = async (req) => {
-    try {
-         let UserEmail = req.headers["email"];
+     try {
+        let UserEmail = req.headers["email"];
         let fromDate = req.body.fromDate;
         let toDate = req.body.toDate;
-         let data = await SalesProductModel.aggregate([
+        let data = await SalesProductModel.aggregate([
             { $match: { UserEmail: UserEmail, CreatedDate: { $gte: new Date(fromDate), $lte: new Date(toDate) } } },
 
             {
@@ -34,6 +34,7 @@ const SalesReport = async (req) => {
         return {Status : "success", data : data}
         
     } catch (error) {
+        return { Status: "fail", message: error.message };
         
     }
 }

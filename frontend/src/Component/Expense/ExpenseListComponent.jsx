@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
-import { ExpenseList } from "../../APIRequest/ExpenseAPI.js";
+import { ExpenseList, ExpenseDelete } from "../../APIRequest/ExpenseAPI.js";
 import { FiEdit, FiTrash2, FiSearch } from "react-icons/fi";
 import dayjs from "dayjs";
+import {confirmDelete} from "../../Helper/DeleteAlert.js"
+import { Link } from "react-router-dom";
 
 function ExpenseListComponent() {
   const [pageNo, setPageNo] = useState(1);
@@ -37,14 +39,16 @@ function ExpenseListComponent() {
     setPageNo(1);
   };
 
-  const handleEdit = (id) => {
-    console.log("Edit Expense ID:", id);
-    // navigate(`/edit-expense/${id}`)
-  };
+  
 
-  const handleDelete = (id) => {
-    console.log("Delete Expense ID:", id);
-    // SweetAlert2 confirm → then delete API
+  const handleDelete = async(id) => {
+    const result = await confirmDelete();
+    if (result.isConfirmed) {
+      let success = await ExpenseDelete(id);
+      if (success === true) {
+        await ExpenseList(pageNo, perPage, searchKeyword);
+      }
+    }
   };
 
   return (
@@ -104,12 +108,12 @@ function ExpenseListComponent() {
                   </td>
                   <td className="p-3 border-b text-center">
                     <div className="flex justify-center gap-3 text-lg">
-                      <button
-                        onClick={() => handleEdit(expense._id)}
+                      <Link
+                        to={`/expense/create_update/${expense._id}`}
                         className="text-blue-600 hover:text-blue-800 transition"
                       >
                         <FiEdit />
-                      </button>
+                      </Link>
                       <button
                         onClick={() => handleDelete(expense._id)}
                         className="text-red-600 hover:text-red-800 transition"
@@ -157,14 +161,14 @@ function ExpenseListComponent() {
             onPageChange={handlePageClick}
             containerClassName={"flex gap-2"}
             pageClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
-            activeClassName={"bg-blue-600 text-white"}
+            activeClassName={"bg-blue-600 text-white cursor-default"}
             previousClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
             nextClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
           />
         )}

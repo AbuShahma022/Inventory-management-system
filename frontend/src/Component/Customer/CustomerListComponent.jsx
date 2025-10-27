@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
-import { CustomerList } from "../../APIRequest/CustomerAPI.js";
+import { CustomerList,CustomerDelete } from "../../APIRequest/CustomerAPI.js";
 import dayjs from "dayjs";
 import { FiEdit, FiTrash2, FiSearch } from "react-icons/fi";
+import {confirmDelete} from "../../Helper/DeleteAlert.js"
+import { Link } from "react-router-dom";
+
 
 function CustomerListComponent() {
   const [pageNo, setPageNo] = useState(1);
@@ -33,14 +36,17 @@ function CustomerListComponent() {
     setSearchKeyword(searchInput.trim() ? searchInput.trim() : "0");
   };
 
-  const handleEdit = (id) => {
-    console.log("Edit Customer ID:", id);
-    // navigate(`/edit-customer/${id}`)
-  };
+ 
 
-  const handleDelete = (id) => {
-    console.log("Delete Customer ID:", id);
-    // Confirm + Delete API here
+  const handleDelete = async(id) => {
+      const result = await confirmDelete();
+          if (result.isConfirmed) {
+            let success = await CustomerDelete(id);
+            if (success === true) {
+              await  CustomerList(pageNo, perPage, searchKeyword);
+            }
+          }
+   
   };
 
   return (
@@ -104,12 +110,12 @@ function CustomerListComponent() {
                   </td>
                   <td className="p-3 border-b text-center">
                     <div className="flex justify-center gap-3 text-lg">
-                      <button
-                        onClick={() => handleEdit(customer._id)}
+                      <Link
+                        to={`/customer/create_update/${customer._id}`}
                         className="text-blue-600 hover:text-blue-800 transition"
                       >
                         <FiEdit />
-                      </button>
+                      </Link>
                       <button
                         onClick={() => handleDelete(customer._id)}
                         className="text-red-600 hover:text-red-800 transition"
@@ -158,14 +164,14 @@ function CustomerListComponent() {
             onPageChange={handlePageClick}
             containerClassName={"flex gap-2"}
             pageClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
-            activeClassName={"bg-blue-600 text-white"}
+            activeClassName={"bg-blue-600 text-white cursor-default"}
             previousClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
             nextClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
           />
         )}

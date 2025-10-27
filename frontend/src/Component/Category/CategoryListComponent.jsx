@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
-import { CategoryAPI } from "../../APIRequest/CategoryAPI.js";
+import { CategoryListAPI, CategoryDelete } from "../../APIRequest/CategoryAPI.js";
 import dayjs from "dayjs";
 import { FiEdit, FiTrash2, FiSearch } from "react-icons/fi";
+import {confirmDelete} from "../../Helper/DeleteAlert.js"
+import { Link } from "react-router-dom";
+
 
 function CategoryListComponent() {
   const [pageNo, setPageNo] = useState(1);
@@ -14,7 +17,7 @@ function CategoryListComponent() {
   const { List, ListTotal } = useSelector((state) => state.category);
 
   useEffect(() => {
-    CategoryAPI(pageNo, perPage, searchKeyword);
+    CategoryListAPI(pageNo, perPage, searchKeyword);
   }, [pageNo, perPage, searchKeyword]);
 
     useEffect(() => {
@@ -32,14 +35,16 @@ function CategoryListComponent() {
     setSearchKeyword(searchInput.trim() ? searchInput.trim() : 0);
   };
 
-  const handleEdit = (id) => {
-    console.log("Edit Category ID:", id);
-    // navigate(`/edit-category/${id}`)
-  };
+ 
 
-  const handleDelete = (id) => {
-    console.log("Delete Category ID:", id);
-    // SweetAlert2 confirm → then delete API call
+  const handleDelete = async(id) => {
+    const result = await confirmDelete();
+      if (result.isConfirmed) {
+        let success = await CategoryDelete(id);
+        if (success === true) {
+          await  CategoryListAPI(pageNo, perPage, searchKeyword);
+        }
+      }
   };
 
   return (
@@ -93,12 +98,13 @@ function CategoryListComponent() {
                   </td>
                   <td className="p-3 border-b text-center">
                     <div className="flex justify-center gap-3 text-lg">
-                      <button
-                        onClick={() => handleEdit(category._id)}
+                      <Link
+                      to={`/category/create_update/${category._id}`}
+                        
                         className="text-blue-600 hover:text-blue-800 transition"
                       >
                         <FiEdit />
-                      </button>
+                      </Link>
                       <button
                         onClick={() => handleDelete(category._id)}
                         className="text-red-600 hover:text-red-800 transition"
@@ -152,14 +158,14 @@ function CategoryListComponent() {
             onPageChange={handlePageClick}
             containerClassName={"flex gap-2"}
             pageClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
-            activeClassName={"bg-blue-600 text-white"}
+            activeClassName={"bg-blue-600 text-white cursor-default"}
             previousClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
             nextClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
           />
         )}

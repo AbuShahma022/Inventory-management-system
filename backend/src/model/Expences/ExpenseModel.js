@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const DataSchema = mongoose.Schema({
     UserEmail : { type: String, required: true },
-    TypeId : {type : mongoose.Schema.Types.ObjectId, ref: 'ExpenceType' },
+    TypeId : {type : mongoose.Schema.Types.ObjectId, ref: 'ExpenseType' },
     Amount : { type: Number, required: true },
     Note : { type: String },
     CreatedDate : { type: Date, default: Date.now ()}

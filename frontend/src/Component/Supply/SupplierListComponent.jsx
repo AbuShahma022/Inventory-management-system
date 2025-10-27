@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
-import { SupplyList } from "../../APIRequest/SupplyAPI.js";
+import { SupplyList, SupplyDelete } from "../../APIRequest/SupplyAPI.js";
 import dayjs from "dayjs";
 import { FiEdit, FiTrash2, FiSearch } from "react-icons/fi";
+import {confirmDelete} from "../../Helper/DeleteAlert.js"
+import { Link } from "react-router-dom";
 
-function SupplierList() {
+function SupplierListComponent() {
   const [pageNo, setPageNo] = useState(1);
   const [perPage, setPerPage] = useState(5);
   const [searchInput, setSearchInput] = useState("");
@@ -37,14 +39,17 @@ function SupplierList() {
     setPageNo(1);
   };
 
-  const handleEdit = (id) => {
-    console.log("Edit Supplier ID:", id);
-    // navigate(`/edit-supplier/${id}`)
-  };
 
-  const handleDelete = (id) => {
-    console.log("Delete Supplier ID:", id);
-    // SweetAlert2 confirm → then delete API
+
+  const handleDelete = async(id) => {
+    const result = await confirmDelete();
+        if (result.isConfirmed) {
+          let success = await SupplyDelete(id);
+          if (success === true) {
+            await  SupplyList(pageNo, perPage, searchKeyword);
+          }
+        }
+    
   };
 
   return (
@@ -106,12 +111,12 @@ function SupplierList() {
                   </td>
                   <td className="p-3 border-b text-center">
                     <div className="flex justify-center gap-3 text-lg">
-                      <button
-                        onClick={() => handleEdit(supplier._id)}
+                      <Link
+                        to={`/supplier/create_update/${supplier._id}`}
                         className="text-blue-600 hover:text-blue-800 transition"
                       >
                         <FiEdit />
-                      </button>
+                      </Link>
                       <button
                         onClick={() => handleDelete(supplier._id)}
                         className="text-red-600 hover:text-red-800 transition"
@@ -159,14 +164,14 @@ function SupplierList() {
             onPageChange={handlePageClick}
             containerClassName={"flex gap-2"}
             pageClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
-            activeClassName={"bg-blue-600 text-white"}
+            activeClassName={"bg-blue-600 text-white cursor-default"}
             previousClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
             nextClassName={
-              "px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"
             }
           />
         )}
@@ -175,4 +180,4 @@ function SupplierList() {
   );
 }
 
-export default SupplierList;
+export default SupplierListComponent;

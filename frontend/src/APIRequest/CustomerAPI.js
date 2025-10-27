@@ -42,3 +42,110 @@ export const CustomerList = async (pageNo, perPage, searchKeyword) => {
     return false;
   }
 };
+
+export const CustomerDetailsByID = async (id) => {
+  try {
+    store.dispatch(showLoader());
+    const URL = `${BaseUrl}/DetailByIdCustomer/${id}`;
+    const res = await axios.get(URL, AxiosHeader);
+    store.dispatch(hideLoader());
+
+    if (res.data["status"] === "success") {
+      return res.data["data"][0];
+    } else {
+      ErrorToast("Customer not found!");
+      return null;
+    }
+  } catch (error) {
+    store.dispatch(hideLoader());
+    ErrorToast("Something went wrong!");
+    return null;
+  }
+};
+
+
+export const CustomerCreate = async (postBody) => {
+  try {
+    store.dispatch(showLoader());
+    const URL = `${BaseUrl}/CreateCustomer`;
+    const res = await axios.post(URL, postBody, AxiosHeader);
+    store.dispatch(hideLoader());
+
+    if (res.data["status"] === "success") {
+      SuccessToast("Customer Created Successfully");
+      return true;
+    } else {
+      ErrorToast("Create Failed!");
+      return false;
+    }
+  } catch (error) {
+    store.dispatch(hideLoader());
+    ErrorToast("Something went wrong!");
+    return false;
+  }
+};
+
+
+export const CustomerUpdate = async (id, postBody) => {
+  try {
+    store.dispatch(showLoader());
+    const URL = `${BaseUrl}/UpdateCustomer/${id}`;
+    const res = await axios.post(URL, postBody, AxiosHeader);
+    store.dispatch(hideLoader());
+
+    if (res.data["status"] === "success") {
+      SuccessToast("Customer Updated Successfully");
+      return true;
+    } else {
+      ErrorToast("Update Failed!");
+      return false;
+    }
+  } catch (error) {
+    store.dispatch(hideLoader());
+    ErrorToast("Something went wrong!");
+    return false;
+  }
+};
+
+
+export const CustomerDelete = async (id) => {
+  try {
+    store.dispatch(showLoader());
+    const URL = `${BaseUrl}/DeleteCustomer/${id}`;
+    const res = await axios.get(URL, AxiosHeader);
+    store.dispatch(hideLoader());
+
+    if (res.data["status"] === "success") {
+      SuccessToast("Customer Deleted Successfully");
+      return true;
+    } else {
+      ErrorToast("Delete Failed!");
+      return false;
+    }
+  } catch (error) {
+    store.dispatch(hideLoader());
+    ErrorToast("Something went wrong!");
+    return false;
+  }
+};
+
+
+export const CustomerDropdownList = async () => {
+  try {
+    store.dispatch(showLoader());
+    const URL = `${BaseUrl}/CustomerDropDown`;
+    const res = await axios.get(URL, AxiosHeader);
+    store.dispatch(hideLoader());
+
+    if (res.data["status"] === "success") {
+      return res.data["data"];
+    } else {
+      ErrorToast("Failed to load dropdown data");
+      return false;
+    }
+  } catch (error) {
+    store.dispatch(hideLoader());
+    ErrorToast("Something went wrong!");
+    return false;
+  }
+};

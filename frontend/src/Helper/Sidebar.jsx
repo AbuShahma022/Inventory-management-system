@@ -29,7 +29,7 @@ export const sidebarItems = [
     title: "Customer",
     icon: <BsPeople className="side-bar-item-icon" />,
     subMenu: [
-      { title: "New Customer", icon: <BsCircle size={16} />, url: "/customer/new" },
+      { title: "New Customer", icon: <BsCircle size={16} />, url: "/customer/create_update" },
       { title: "Customer List", icon: <BsCircle size={16} />, url: "/customer/list" },
     ],
   },
@@ -37,7 +37,7 @@ export const sidebarItems = [
     title: "Supplier",
     icon: <TbTruckDelivery className="side-bar-item-icon" />,
     subMenu: [
-      { title: "New Supplier", icon: <BsCircle size={16} />, url: "/supplier/new" },
+      { title: "New Supplier", icon: <BsCircle size={16} />, url: "/supplier/create_update" },
       { title: "Supplier List", icon: <BsCircle size={16} />, url: "/supplier/list" },
     ],
   },
@@ -45,9 +45,9 @@ export const sidebarItems = [
     title: "Expense",
     icon: <AiOutlineBank className="side-bar-item-icon" />,
     subMenu: [
-      { title: "New Expense Type", icon: <BsCircle size={16} />, url: "/expense/type/new" },
+      { title: "New Expense Type", icon: <BsCircle size={16} />, url: "/expense/type/create_update" },
       { title: "Expense Type List", icon: <BsCircle size={16} />, url: "/expense/type/list" },
-      { title: "New Expense", icon: <IoCreateOutline size={16} />, url: "/expense/new" },
+      { title: "New Expense", icon: <IoCreateOutline size={16} />, url: "/expense/create_update" },
       { title: "Expense List", icon: <AiOutlineUnorderedList size={16} />, url: "/expense/list" },
     ],
   },
@@ -55,11 +55,11 @@ export const sidebarItems = [
     title: "Product",
     icon: <BsBox className="side-bar-item-icon" />,
     subMenu: [
-      { title: "New Brand", icon: <BsCircle size={16} />, url: "/brand/new" },
+      { title: "New Brand", icon: <BsCircle size={16} />, url: "/brand/create_update" },
       { title: "Brand List", icon: <BsCircle size={16} />, url: "/brand/list" },
-      { title: "New Category", icon: <BsCircle size={16} />, url: "/category/new" },
+      { title: "New Category", icon: <BsCircle size={16} />, url: "/category/create_update" },
       { title: "Category List", icon: <BsCircle size={16} />, url: "/category/list" },
-      { title: "New Product", icon: <BsCircle size={16} />, url: "/product/new" },
+      { title: "New Product", icon: <BsCircle size={16} />, url: "/product/create_update" },
       { title: "Product List", icon: <BsCircle size={16} />, url: "/product/list" },
     ],
   },
@@ -67,7 +67,7 @@ export const sidebarItems = [
     title: "Purchase",
     icon: <BsBagPlus className="side-bar-item-icon" />,
     subMenu: [
-      { title: "New Purchase", icon: <BsCircle size={16} />, url: "/purchase/new" },
+      { title: "New Purchase", icon: <BsCircle size={16} />, url: "/purchase/create_update" },
       { title: "Purchase List", icon: <BsCircle size={16} />, url: "/purchase/list" },
     ],
   },
@@ -75,7 +75,7 @@ export const sidebarItems = [
     title: "Sale",
     icon: <BsCartPlus className="side-bar-item-icon" />,
     subMenu: [
-      { title: "New Sale", icon: <BsCircle size={16} />, url: "/sale/new" },
+      { title: "New Sale", icon: <BsCircle size={16} />, url: "/sale/create_update" },
       { title: "Sale List", icon: <BsCircle size={16} />, url: "/sale/list" },
     ],
   },
@@ -83,7 +83,7 @@ export const sidebarItems = [
     title: "Return",
     icon: <BsBagX className="side-bar-item-icon" />,
     subMenu: [
-      { title: "New Return", icon: <BsCircle size={16} />, url: "/return/new" },
+      { title: "New Return", icon: <BsCircle size={16} />, url: "/return/create_update" },
       { title: "Return List", icon: <BsCircle size={16} />, url: "/return/list" },
     ],
   },

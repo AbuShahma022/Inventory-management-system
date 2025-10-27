@@ -8,6 +8,7 @@ import PurchaseModel from "../../model/Purchases/PurchasesModel.js";
 import DeleteService from "../../services/CommonService/DeleteService.js";
 import CheckAssociationService from "../../services/CommonService/CheckAssociationService.js";
 import DetailById from "../../services/CommonService/DetailByIdService.js";
+import DropdownService from "../../services/CommonService/DropdownService.js";
 
 
 
@@ -59,6 +60,12 @@ const DeleteProduct = async (req, res) =>  {
 
 }
 
+
+const ProductDropdown = async (req, res) => {
+    let Result = await DropdownService(req,ProductModel, {_id:1, Name:1});
+    res.status(200).json(Result);
+}
+
     
 
 export {
@@ -66,5 +73,6 @@ export {
     UpdateProduct,
     ListProduct,
     DeleteProduct,
-    DetailProduct
+    DetailProduct,
+    ProductDropdown
 }

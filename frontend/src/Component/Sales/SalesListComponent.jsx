@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
-import { SalesList } from "../../APIRequest/SalesAPI";
+import { SalesList, SalesDelete } from "../../APIRequest/SalesAPI";
 import dayjs from "dayjs";
 import { FiEdit, FiTrash2, FiSearch } from "react-icons/fi";
+import {confirmDelete} from "../../Helper/DeleteAlert"
+import { Link } from "react-router-dom";
 
 function SalesListComponent() {
   const [pageNo, setPageNo] = useState(1);
@@ -37,12 +39,17 @@ function SalesListComponent() {
     setPageNo(1);
   };
 
-  const handleEdit = (id) => {
-    console.log("Edit Sales ID:", id);
-  };
+ 
 
-  const handleDelete = (id) => {
-    console.log("Delete Sales ID:", id);
+  const handleDelete = async(id) => {
+    const result = await confirmDelete();
+    if (result.isConfirmed) {
+      let success = await SalesDelete(id);
+      if (success === true) {
+        await SalesList(pageNo, perPage, searchKeyword);
+      }
+    }
+    
   };
 
   return (
@@ -100,9 +107,9 @@ function SalesListComponent() {
 
                   <td className="p-3 border-b text-center">
                     <div className="flex justify-center gap-3 text-lg">
-                      <button onClick={() => handleEdit(sale._id)} className="text-blue-600 hover:text-blue-800 transition">
+                      <Link to={`/sale/create_update/${sale._id}`} className="text-blue-600 hover:text-blue-800 transition">
                         <FiEdit />
-                      </button>
+                      </Link>
                       <button onClick={() => handleDelete(sale._id)} className="text-red-600 hover:text-red-800 transition">
                         <FiTrash2 />
                       </button>
@@ -144,10 +151,10 @@ function SalesListComponent() {
             pageCount={Math.ceil(listTotal / perPage)}
             onPageChange={handlePageClick}
             containerClassName={"flex gap-2"}
-            pageClassName={"px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"}
-            activeClassName={"bg-blue-600 text-white"}
-            previousClassName={"px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"}
-            nextClassName={"px-3 py-1 border rounded-md hover:bg-blue-100 text-gray-700"}
+            pageClassName={"px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"}
+            activeClassName={"bg-blue-600 text-white cursor-default"}
+            previousClassName={"px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"}
+            nextClassName={"px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100 text-gray-700"}
           />
         )}
       </div>

@@ -123,7 +123,7 @@ router.post("/CreateExpense", authVerifyMiddleware, CreateExpense);
 router.post("/UpdateExpense/:id", authVerifyMiddleware, UpdateExpense);
 router.get("/ExpenseList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ExpenseList);
 router.get("/DeleteExpense/:id", authVerifyMiddleware, DeleteExpense);
-router.get("/DetailByIdExpense/:id", authVerifyMiddleware, DetailByIdExpense);
+router.get("/ExpenseDetailById/:id", authVerifyMiddleware, DetailByIdExpense);
 
 // Product Routes
 import {
@@ -131,7 +131,8 @@ import {
     UpdateProduct,
     ListProduct,
     DeleteProduct,
-    DetailProduct
+    DetailProduct,
+    ProductDropdown
 } from "../controller/Products/ProductsController.js";
 
 router.post("/CreateProduct", authVerifyMiddleware, CreateProduct);
@@ -139,6 +140,7 @@ router.post("/UpdateProduct/:id", authVerifyMiddleware, UpdateProduct);
 router.get("/ProductList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ListProduct);
 router.get("/DeleteProduct/:id", authVerifyMiddleware, DeleteProduct);
 router.get("/DetailProduct/:id", authVerifyMiddleware, DetailProduct);
+router.get("/ProductDropdown", authVerifyMiddleware, ProductDropdown);
 
 // Purchase Routes
 import {

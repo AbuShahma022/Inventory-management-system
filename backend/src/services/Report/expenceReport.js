@@ -7,7 +7,7 @@ const ExpenseReport = async (req) => {
         let toDate = req.body.toDate;
 
        let data = await ExpenseModel.aggregate([
-        { $match: { UserEmail: UserEmail, CreateDate: { $gte: new Date(fromDate), $lte: new Date(toDate) } } },
+        { $match: { UserEmail: UserEmail, CreatedDate: { $gte: new Date(fromDate), $lte: new Date(toDate) } } },
         {
             $facet:{
                 Total : [{
@@ -19,7 +19,7 @@ const ExpenseReport = async (req) => {
                 Rows: [
     {
         $lookup: {
-            from: "expencetypes",       // collection name
+            from: "expensetypes",       // collection name
             localField: "TypeId",       // field in ExpenseModel
             foreignField: "_id",        // field in expencetypes collection
             as: "Type"                  // alias

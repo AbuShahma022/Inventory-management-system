@@ -35,3 +35,70 @@ export const PurchaseList = async (pageNo, perPage, searchKeyword) => {
     ErrorToast(error.response?.data?.data || "Something went wrong!");
   }
 };
+
+
+export const PurchaseCreate = async (postBody) => {
+  try {
+    store.dispatch(showLoader());
+    const URL = `${BaseUrl}/CreatePurchase`;
+    const res = await axios.post(URL, postBody, AxiosHeader);
+    store.dispatch(hideLoader());
+
+    if (res.status === 200 && res.data.status === "success") {
+      SuccessToast("Purchase Created Successfully!");
+      return true;
+    } else {
+      ErrorToast("Purchase Create Failed!");
+      return false;
+    }
+  } catch (error) {
+    store.dispatch(hideLoader());
+    ErrorToast(error.response?.data?.data || "Something went wrong!");
+    return false;
+  }
+};
+
+
+
+
+export const PurchaseDelete = async (id) => {
+  try {
+    store.dispatch(showLoader());
+    const URL = `${BaseUrl}/DeletePurchase/${id}`;
+    const res = await axios.get(URL, AxiosHeader);
+    store.dispatch(hideLoader());
+
+    if (res.status === 200 && res.data.status === "success") {
+      SuccessToast("Purchase Deleted Successfully!");
+      return true;
+    } else {
+      ErrorToast("Failed to Delete Purchase!");
+      return false;
+    }
+  } catch (error) {
+    store.dispatch(hideLoader());
+    ErrorToast(error.response?.data?.data || "Something went wrong!");
+    return false;
+  }
+};
+
+
+export const PurchaseDetailsById = async (id) => {
+  try {
+    store.dispatch(showLoader());
+    const URL = `${BaseUrl}/DetailPurchase/${id}`;
+    const res = await axios.get(URL, AxiosHeader);
+    store.dispatch(hideLoader());
+
+    if (res.status === 200 && res.data.status === "success") {
+      return res.data.data[0]; 
+    } else {
+      ErrorToast("Purchase details not found!");
+      return null;
+    }
+  } catch (error) {
+    store.dispatch(hideLoader());
+    ErrorToast(error.response?.data?.data || "Something went wrong!");
+    return null;
+  }
+};

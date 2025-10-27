@@ -4,7 +4,9 @@ import CategoryListComponent from '../../Component/Category/CategoryListComponen
 
 function CategoryListPage() {
   return (
-    <MasterLayout><CategoryListComponent /></MasterLayout>
+    <MasterLayout>
+      <CategoryListComponent/>
+      </MasterLayout>
   )
 }
 
