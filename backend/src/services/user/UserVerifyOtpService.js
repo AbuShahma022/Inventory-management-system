@@ -2,31 +2,38 @@ import OTPSModel from "../../model/Users/OTPSModel.js";
 
 const UserOtpverifyService = async (req, dataModel) => {
   try {
-    const email = req.params.email;
-    const otp = req.params.otp;
+    let email = req.params.email;
+    let otp = req.params.otp;
+    let UNUSED = 0;
+    let USED = 1;
 
-    const UNUSED = 0;   // OTP not used yet
-    const USED = 1;     // OTP already verified
-
-    // Check if OTP exists and is unused
-    let otpCount = await OTPSModel.aggregate([
+    // Check OTP exists and unused
+    let OTPCount = await OTPSModel.aggregate([
       { $match: { email: email, otp: otp, status: UNUSED } },
       { $count: "total" }
     ]);
 
-    if (otpCount.length > 0) {
-      // Update OTP status to "used"
-      let otpUpdate = await OTPSModel.updateOne(
-        { email: email, otp: otp },
-        { status: USED }
+    if (OTPCount.length > 0) {
+
+      // Update status from unused to used
+      let OTPUpdate = await OTPSModel.updateOne(
+        { email: email, otp: otp, status: UNUSED },
+        { status: USED },
+        { upsert: true }
+
+        
       );
 
-      return { status: "success", data: otpUpdate };
+      
+
+      return { status: "success", data: OTPUpdate };
+
     } else {
-      return { status: "failed", data: "Invalid or already used OTP" };
+      return { status: "fail", data: "Invalid OTP Code" };
     }
+
   } catch (error) {
-    return { status: "failed", data: error.toString() };
+    return { status: "fail", data: error.toString() };
   }
 };
 

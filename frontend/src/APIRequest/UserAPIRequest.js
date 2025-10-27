@@ -205,8 +205,9 @@ export const ResetPassword = async (email, otp, newPassword) => {
 
     if (res.status === 200 && res.data.status === "success") {
       SuccessToast("Password reset successfully!");
-      return true;
       removeSessions()
+      return true;
+      
 
     } else {
       ErrorToast(res.data.data || "Password reset failed!");

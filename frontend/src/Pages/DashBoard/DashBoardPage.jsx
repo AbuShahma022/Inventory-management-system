@@ -1,9 +1,11 @@
 import React from 'react'
+import MasterLayout from '../../Component/MasterLayout/MasterLayout'
 import DashBoardComponent from '../../Component/DashBoard/DashBoardComponent'
+
 
 function DashBoardPage() {
   return (
-    <div><DashBoardComponent /></div>
+    <MasterLayout><DashBoardComponent /></MasterLayout>
   )
 }
 

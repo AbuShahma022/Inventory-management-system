@@ -34,6 +34,10 @@ const ProductCreateUpdatePage = lazy(()=>import("./Pages/Product/ProductCreateUp
 const PurchaseCreateUpdatePage = lazy(()=>import("./Pages/Purchase/PurchaseCreateUpdatePage.jsx"))
 const SalesCreateUpdatePage = lazy(()=>import("./Pages/Sales/SalesCreateUpdatePage.jsx"))
 const ReturnCreateUpdatePage = lazy(()=>import("./Pages/Return/ReturnCreateUpdatePage.jsx"))
+const ExpenseReportPage = lazy(()=>import("./Pages/Report/ExpenseReportPage.jsx"))
+const PurchaseReportPage = lazy(()=>import("./Pages/Report/PurchaseReportPage.jsx"))
+const SalesReportPage = lazy(()=>import("./Pages/Report/SalesReportPage.jsx"))
+const ReturnReportPage = lazy(()=>import("./Pages/Report/ReturnReportPage.jsx"))
 
 
 function App() {
@@ -80,6 +84,10 @@ function App() {
               <Route path="/sale/create_update/:id" element={<SalesCreateUpdatePage />} />
               <Route path="/return/create_update" element={<ReturnCreateUpdatePage />} />
               <Route path="/return/create_update/:id" element={<ReturnCreateUpdatePage />} />
+              <Route path="/report/expense" element={<ExpenseReportPage />} />
+              <Route path="/report/purchase" element={<PurchaseReportPage />} />
+              <Route path="/report/sale" element={<SalesReportPage />} />
+              <Route path="/report/return" element={<ReturnReportPage />} />
               
 
             </>
