@@ -34,7 +34,7 @@ import {
     DeleteBrand
 } from "../controller/Brands/BrandController.js";
 
-router.post("/CreateBrands", authVerifyMiddleware, CreateBrand);
+router.post("/CreateBrands",authVerifyMiddleware, CreateBrand);
 router.post("/UpdateBrands/:id", authVerifyMiddleware, UpdateBrand);
 router.get("/BrandsList/:pageNo/:perPage/:searchKeyword", authVerifyMiddleware, ListBrand);
 router.get ("/BrandsDropDown", authVerifyMiddleware, DropDownBrand);
@@ -198,6 +198,10 @@ router.get("/ExpenceSummary", authVerifyMiddleware, ExpenceSummaryController);
 router.get("/PurchaseSummary", authVerifyMiddleware, PurchaseSummaryController);
 router.get("/ReturnSummary", authVerifyMiddleware, ReturnSummaryController);
 router.get("/SalesSummary", authVerifyMiddleware, SalesSummaryController);
+
+import AiChatController from "../controller/AIChat/ChatController.js";
+
+router.post("/Chat", authVerifyMiddleware, AiChatController);
 
 
 
