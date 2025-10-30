@@ -8,7 +8,7 @@ import PurchaseModel from "../../model/Purchases/PurchasesModel.js";
 import DeleteService from "../../services/CommonService/DeleteService.js";
 import CheckAssociationService from "../../services/CommonService/CheckAssociationService.js";
 import DetailById from "../../services/CommonService/DetailByIdService.js";
-import DropdownService from "../../services/CommonService/DropdownService.js";
+import DropdownService from "../../services/CommonService/DropDownService.js";
 
 
 
