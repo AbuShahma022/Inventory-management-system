@@ -8,6 +8,9 @@ import {expenseAnalysisTool} from "./Tools/ExpenseTool.js"
 import {purchaseAnalysisTool} from "./Tools/PurchaseTool.js"
 import {salesAnalysisTool} from "./Tools/SalesTool.js"
 import {returnAnalysisTool} from "./Tools/ReturnTool.js"
+import { MemorySaver } from "@langchain/langgraph";
+
+const checkpointer = new MemorySaver();
 
 const agent = createAgent({
     model: gemini,
@@ -29,8 +32,9 @@ const agent = createAgent({
         returnAnalysisTool
 
     ],
+    checkpointer,
     systemPrompt:`you are helpful IMS agent for name ims INVENTRA . your name is Inventra Core. you will provide all assistant and give proper
-                    introduction yourself and your ability
+                    introduction yourself and your ability. Keep replies short and clear.
                  you can call the tool and reply human like language,
                  you will help friendly way and can summarize the data.
                  you can analyze the data and give suggestion.

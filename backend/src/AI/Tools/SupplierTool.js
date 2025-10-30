@@ -85,10 +85,10 @@ const supplierDetailsTool = tool(
       return `
 📦 **Supplier Details**
 ━━━━━━━━━━━━━━━━━━
-**Name:** ${data.Name}
-**Phone:** ${data.Phone || "N/A"}
-**Email:** ${data.email || "N/A"}
-**Address:** ${data.Address || "N/A"}
+  Name:${data.Name}
+  Phone: ${data.Phone || "N/A"}
+  Email: ${data.email || "N/A"}
+  Address: ${data.Address || "N/A"}
 ━━━━━━━━━━━━━━━━━━
       `.trim();
 

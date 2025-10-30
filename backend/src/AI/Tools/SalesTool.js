@@ -63,23 +63,23 @@ const salesAnalysisTool = tool(
       const formattedFrom = new Date(fromDate).toLocaleDateString();
       const formattedTo = new Date(toDate).toLocaleDateString();
 
-      let summary = ` **Sales Summary** (${formattedFrom} → ${formattedTo})\n\n`;
-      summary += ` **Total Sales Amount:** ${totalSales}\n\n`;
+      let summary = ` Sales Summary (${formattedFrom} → ${formattedTo})`;
+      summary += ` Total Sales Amount: ${totalSales}`;
 
-      if (topBrand) summary += ` **Top Brand Sold:** ${topBrand[0]} (${topBrand[1]})\n`;
-      if (topCategory) summary += ` **Most Sold Category:** ${topCategory[0]} (${topCategory[1]})\n`;
-      if (topProduct) summary += ` **Best-selling Product:** ${topProduct[0]} (${topProduct[1]})\n`;
+      if (topBrand) summary += ` Top Brand Sold: ${topBrand[0]} (${topBrand[1]})`;
+      if (topCategory) summary += ` Most Sold Category: ${topCategory[0]} (${topCategory[1]})`;
+      if (topProduct) summary += ` Best-selling Product: ${topProduct[0]} (${topProduct[1]})`;
 
-      summary += `\n🔍 **Category Breakdown:**\n`;
+      summary += ` Category Breakdown:`;
       Object.entries(categoryTotals).forEach(([cat, amt]) => {
-        summary += `• ${cat}: ${amt}\n`;
+        summary += `• ${cat}: ${amt}`;
       });
 
       // Smart insight
       if (topBrand && topBrand[1] > totalSales * 0.6) {
-        summary += `\n **Insight:** Your sales heavily depend on **${topBrand[0]}**. Consider promoting variety to reduce risk.`;
+        summary += `Insight: Your sales heavily depend on ${topBrand[0]}. Consider promoting variety to reduce risk.`;
       } else {
-        summary += `\n **Insight:** Sales distribution is balanced across brands.`;
+        summary += ` Insight: Sales distribution is balanced across brands.`;
       }
 
       return summary;

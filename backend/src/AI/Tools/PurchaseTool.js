@@ -62,11 +62,11 @@ const purchaseAnalysisTool = tool(
       const topProduct = getTop(productTotals);
 
       // Build Summary
-      let summary = ` **Purchase Summary** (${new Date(fromDate).toLocaleDateString()} → ${new Date(toDate).toLocaleDateString()})\n\n`;
-      summary += ` **Total Purchase Amount:** ${totalPurchase}\n\n`;
-      summary += ` **Top Brand Purchased:** ${topBrand[0]} (${topBrand[1]})\n`;
-      summary += ` **Most Purchased Category:** ${topCategory[0]} (${topCategory[1]})\n`;
-      summary += ` **Most Purchased Product:** ${topProduct[0]} (${topProduct[1]})\n\n`;
+      let summary = ` Purchase Summary (${new Date(fromDate).toLocaleDateString()} → ${new Date(toDate).toLocaleDateString()})\n\n`;
+      summary += ` Total Purchase Amount: ${totalPurchase}\n\n`;
+      summary += ` Top Brand Purchased: ${topBrand[0]} (${topBrand[1]})\n`;
+      summary += ` Most Purchased Category: ${topCategory[0]} (${topCategory[1]})\n`;
+      summary += ` Most Purchased Product: ${topProduct[0]} (${topProduct[1]})\n\n`;
 
       // Advice
       if (topBrand[1] > totalPurchase * 0.5) {

@@ -61,23 +61,23 @@ const returnAnalysisTool = tool(
       const formattedFrom = new Date(fromDate).toLocaleDateString();
       const formattedTo = new Date(toDate).toLocaleDateString();
 
-      let summary = ` **Return Summary** (${formattedFrom} → ${formattedTo})\n\n`;
-      summary += ` **Total Returned Amount:** ${totalReturned}\n\n`;
+      let summary = ` Return Summary (${formattedFrom} → ${formattedTo})`;
+      summary += ` Total Returned Amount: ${totalReturned}`;
 
-      if (topBrand) summary += ` **Most Returned Brand:** ${topBrand[0]} (${topBrand[1]})\n`;
-      if (topCategory) summary += ` **Most Returned Category:** ${topCategory[0]} (${topCategory[1]})\n`;
-      if (topProduct) summary += ` **Most Returned Product:** ${topProduct[0]} (${topProduct[1]})\n`;
+      if (topBrand) summary += ` Most Returned Brand: ${topBrand[0]} (${topBrand[1]})\n`;
+      if (topCategory) summary += ` Most Returned Category: ${topCategory[0]} (${topCategory[1]})`;
+      if (topProduct) summary += ` Most Returned Product: ${topProduct[0]} (${topProduct[1]})`;
 
-      summary += `\n🔍 **Category Breakdown:**\n`;
+      summary += `\n🔍 Category Breakdown:`;
       Object.entries(categoryTotals).forEach(([cat, amt]) => {
         summary += `• ${cat}: ${amt}\n`;
       });
 
       // Insight logic
       if (topBrand && topBrand[1] > totalReturned * 0.6) {
-        summary += `\n **Insight:** Large number of returns from **${topBrand[0]}**. Investigate quality or service issues.`;
+        summary += `Insight: Large number of returns from ${topBrand[0]}. Investigate quality or service issues.`;
       } else {
-        summary += `\n **Insight:** Return distribution looks balanced.`;
+        summary += ` Insight:** Return distribution looks balanced.`;
       }
 
       return summary;

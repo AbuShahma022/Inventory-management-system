@@ -55,13 +55,13 @@ const expenseAnalysisTool = tool(
       const highestAmount = highestCategory?.[1];
 
       // Construct summary
-      let summary = ` **Expense Summary** (${new Date(fromDate).toLocaleDateString()} → ${new Date(toDate).toLocaleDateString()})\n\n`;
-      summary += ` **Total Spending:** ${total}\n`;
-      summary += ` **Highest Expense Category:** ${highestName} (${highestAmount})\n\n`;
+      let summary = ` Expense Summary (${new Date(fromDate).toLocaleDateString()} → ${new Date(toDate).toLocaleDateString()})`;
+      summary += ` Total Spending: ${total}`;
+      summary += ` Highest Expense Category: ${highestName} (${highestAmount})`;
 
       // Smart advice
       if (highestAmount > total * 0.5) {
-        summary += ` More than *50%* of your spending is in "${highestName}". Consider reducing this cost.\n\n`;
+        summary += ` More than 50% of your spending is in "${highestName}". Consider reducing this cost.`;
       } else {
         summary += ` Your spending is balanced across categories.\n\n`;
       }

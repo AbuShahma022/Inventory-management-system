@@ -82,11 +82,11 @@ const customerDetailsByNameTool = tool(
       const data = detailRes.data.data[0] || {};
 
       return (
-        `👤 **Customer Details Found**\n\n` +
-        `• **Name:** ${data.Name || "N/A"}\n` +
-        `• **Phone:** ${data.Phone || "N/A"}\n` +
-        `• **Email:** ${data.email || "N/A"}\n` +
-        `• **Address:** ${data.Address || "N/A"}\n`
+        `Customer Details Found` +
+        `Name: ${data.Name || "N/A"}` +
+        `Phone: ${data.Phone || "N/A"}` +
+        `Email: ${data.email || "N/A"}` +
+        `Address: ${data.Address || "N/A"}`
       );
 
     } catch (err) {

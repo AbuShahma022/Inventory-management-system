@@ -26,9 +26,9 @@ const createCategoryTool = tool(
       );
 
       if (response.data.status === "success") {
-        return `✅ Category "${categoryName}" created successfully!`;
+        return ` Category "${categoryName}" created successfully!`;
       } else {
-        return `⚠️ Unable to create category. Server says: ${response.data.message}`;
+        return ` Unable to create category. Server says: ${response.data.message}`;
       }
     } catch (err) {
       console.error(" createCategoryTool Error:", err.response?.data || err);
@@ -53,14 +53,14 @@ const updateCategoryTool = tool(
     }
 
     try {
-      // 1️⃣ Get Category Dropdown to find ID
+      //  Get Category Dropdown to find ID
       const dropdownRes = await axios.get(`${baseUrl}/CategoryDropDown`, {
         headers: { token }
       });
 
       const categories = dropdownRes.data?.data || dropdownRes.data;
 
-      // 2️⃣ Find matching category
+      // Find matching category
       const category = categories.find(
         (cat) => cat.Name.toLowerCase() === oldCategoryName.toLowerCase()
       );
@@ -71,7 +71,7 @@ const updateCategoryTool = tool(
 
       const categoryId = category._id;
 
-      // 3️⃣ Update Category
+      //  Update Category
       const updateRes = await axios.post(
         `${baseUrl}/UpdateCategory/${categoryId}`,
         { Name: newCategoryName },
@@ -79,9 +79,9 @@ const updateCategoryTool = tool(
       );
 
       if (updateRes.data.status === "success") {
-        return `✅ Category updated successfully: "${oldCategoryName}" → "${newCategoryName}"`;
+        return ` Category updated successfully: "${oldCategoryName}" → "${newCategoryName}"`;
       } else {
-        return `⚠️ Unable to update category. Server says: ${updateRes.data.message}`;
+        return ` Unable to update category. Server says: ${updateRes.data.message}`;
       }
     } catch (err) {
       console.error(" updateCategoryTool Error:", err.response?.data || err);
@@ -114,12 +114,12 @@ const categoryDropdownTool = tool(
         const categories = response.data.data.map(item => item.Name) || [];
 
         if (categories.length === 0) {
-          return "⚠️ No categories found in your inventory.";
+          return " No categories found in your inventory.";
         }
 
-        return "🟢 Available Categories:\n" + categories.map(c => `• ${c}`).join("\n");
+        return " Available Categories:\n" + categories.map(c => `• ${c}`).join("\n");
       } else {
-        return `⚠️ Unable to fetch category list. Server says: ${response.data.message}`;
+        return ` Unable to fetch category list. Server says: ${response.data.message}`;
       }
     } catch (err) {
       console.error(" categoryDropdownTool Error:", err.response?.data || err);

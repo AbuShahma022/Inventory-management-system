@@ -1,32 +1,35 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineLogout } from "react-icons/ai";
+import { FiMessageCircle, FiX } from "react-icons/fi";
 import logo from "../../assets/myIms.svg";
 import { sidebarItems } from "../../Helper/Sidebar";
-import { removeSessions,getUserDetailsLocal } from "../../Helper/SessionHelper";
+import { removeSessions, getUserDetailsLocal } from "../../Helper/SessionHelper";
 import { useSelector } from "react-redux";
+import AIAgentComponent from "./AIAgentComponent";
 
 function MasterLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeMenu, setActiveMenu] = useState(null);
+  const [isAgentOpen, setIsAgentOpen] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ Get user directly from Redux store (no session storage)
   const userFromStore = useSelector((state) => state.userDetails.user);
-  const userFromLocal = getUserDetailsLocal(); 
-  const user = userFromStore || userFromLocal; 
+  const userFromLocal = getUserDetailsLocal();
+  const user = userFromStore || userFromLocal;
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const toggleSubMenu = (index) =>
     setActiveMenu(activeMenu === index ? null : index);
 
   const onLogout = () => {
-    removeSessions(); // only clears token
+    removeSessions();
     navigate("/login");
   };
 
   return (
     <div className="flex min-h-screen bg-[#f4f7fb] text-gray-800">
+
       {/* Sidebar */}
       <div
         className={`bg-white shadow-lg border-r border-gray-200 transition-all duration-300 
@@ -120,7 +123,7 @@ function MasterLayout({ children }) {
         </div>
       </div>
 
-      {/* Main content */}
+      {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Top Navbar */}
         <header className="flex items-center justify-between bg-white shadow-sm border-b border-gray-200 px-6 h-16">
@@ -131,7 +134,6 @@ function MasterLayout({ children }) {
             <AiOutlineMenu size={22} />
           </button>
 
-          {/* ✅ User info (reactive from store) */}
           <Link to="/profile" className="flex items-center gap-3">
             <img
               src={user?.photo || "/default-user.png"}
@@ -147,6 +149,33 @@ function MasterLayout({ children }) {
         {/* Page Content */}
         <main className="flex-1 p-6 overflow-y-auto">{children}</main>
       </div>
+
+      {/* ✅ AI Assistant Floating Button */}
+      {!isAgentOpen && (
+        <button
+          onClick={() => setIsAgentOpen(true)}
+          className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-indigo-600 
+          text-white p-4 rounded-full shadow-xl hover:scale-110 transition z-[1000]"
+        >
+          <FiMessageCircle size={22} />
+        </button>
+      )}
+
+      {/* ✅ AI Chat Panel */}
+     {isAgentOpen && (
+  <div className=" bottom-6 right-6 w-[350px] md:w-[420px] h-[600px]
+  bg-white rounded-2xl fixed shadow-2xl border border-gray-200 z-[1000] flex flex-col">
+
+    <div className="flex items-center justify-between px-4 py-3 border-b bg-white font-semibold">
+      Inventra Core Assistant
+      <button onClick={() => setIsAgentOpen(false)} className="text-gray-500 hover:text-gray-700">
+        <FiX size={20} />
+      </button>
+    </div>
+
+    <AIAgentComponent />
+  </div>
+        )}
     </div>
   );
 }

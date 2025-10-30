@@ -3,7 +3,7 @@ import axios from "axios";
 import { showLoader, hideLoader } from "../Redux/State-Slice/LoaderSlice.js";
 import store from "../Redux/Store/store.js";
 import { ErrorToast, SuccessToast } from "../Helper/FormHelper.js";
-import { getToken, setToken, setUserDetailsLocal,setEmail,setOTP,removeSessions } from "../Helper/SessionHelper.js";
+import { getToken, setToken, setUserDetailsLocal,setEmail,setOTP,removeSessions,setThreadId } from "../Helper/SessionHelper.js";
 import { setUserDetails } from "../Redux/State-Slice/UserDetailsSlice.js";
 import { setProfile } from "../Redux/State-Slice/ProfileSlice.js";
 
@@ -46,6 +46,7 @@ export const UserLogin = async (email, password) => {
 
     const token = res.data["token"];
     const userData = res.data["data"][0];
+    const thread_id = userData._id
 
     if (!token || !userData) {
       throw new Error("Invalid login response format");
@@ -53,11 +54,12 @@ export const UserLogin = async (email, password) => {
 
     // Save token
     setToken(token);
+    setThreadId(thread_id);
 
     // ✅ Save user details to localStorage
     setUserDetailsLocal(userData);
 
-    // ✅ Also update Redux store
+    //   update Redux store
     store.dispatch(setUserDetails(userData));
 
     SuccessToast("Login Successful!");

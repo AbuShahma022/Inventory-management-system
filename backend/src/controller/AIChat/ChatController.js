@@ -25,24 +25,36 @@ const AiChatController = async (req, res) => {
     const result = await agent.invoke(
       {messages: [new HumanMessage(message)]},
      
-        { configurable: { token } } //context passing
+        { configurable: { token ,thread_id: req.headers["thread_id"] || "global-session"} }, //context passing
+          
     );
 
-    // ✅ The agent returns { messages: [...] }
-    const aiMsg = result.messages[result.messages.length - 1]; // last message
     const parser = new StringOutputParser();
-    const finalReply = await parser.parse(aiMsg.content); 
+
+    // ✅ The agent returns { messages: [...] }
+     const rawOutput =
+      result?.output_text ||
+      result?.output ||
+      result?.messages?.at(-1)?.content ||
+      "";
+
+    const parsedOutput = await parser.invoke(rawOutput);
+  
+    const finalReply =
+      parsedOutput
+        ?.replace(/\*\*(.*?)\*\*/g, "$1")
+        ?.replace(/\n/g, " ") || "🤖 No response generated.";
 
     return res.status(200).json({
       success: true,
-      reply: finalReply,
+      reply: finalReply.trim(),
     });
 
   } catch (error) {
-    console.error("💥 AiChatController Error:", error);
+    console.error(" AiChatController Error:", error);
     return res.status(500).json({
       success: false,
-      reply: "😕 Something went wrong while processing your request.",
+      reply: " Something went wrong while processing your request.",
     });
   }
 };

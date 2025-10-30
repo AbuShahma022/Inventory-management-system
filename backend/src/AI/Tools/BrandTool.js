@@ -30,9 +30,9 @@ const createBrandTool = tool(
       );
 
       if (response.data.status === "success") {
-        return `✅ Brand "${brandName}" created successfully  !`; 
+        return `Brand "${brandName}" created successfully  !`; 
       } else {
-        return `⚠️ Unable to create brand. Server says: ${response.data.message}`;
+        return ` Unable to create brand. Server says: ${response.data.message}`;
       }
     } catch (err) {
       console.error(" createBrandTool Error:", err.response?.data || err);
@@ -59,14 +59,14 @@ const updateBrandTool = tool(
     if (!newBrandName) return " New brand name is required.";
 
     try {
-      // 1️⃣ Fetch Brand Dropdown
+      //  Fetch Brand Dropdown
       const dropdownRes = await axios.get(`${baseUrl}/BrandsDropDown`, {
         headers: { token }
       });
 
       const brands = dropdownRes.data?.data || dropdownRes.data;
 
-      // 2️⃣ Locate brand by name (case-insensitive)
+      // Locate brand by name (case-insensitive)
       const brand = brands.find(
         (b) => b.Name.toLowerCase() === oldBrandName.toLowerCase()
       );
@@ -77,7 +77,7 @@ const updateBrandTool = tool(
 
       const brandId = brand._id;
 
-      // 3️⃣ Update brand
+      //  Update brand
       const updateRes = await axios.post(
         `${baseUrl}/UpdateBrands/${brandId}`,
         { Name: newBrandName },
@@ -127,10 +127,10 @@ const brandListTool = tool(
       const total = response.data?.data[0].Total || 0;
 
       if (list.length === 0) {
-        return "⚠️ No brands found.";
+        return " No brands found.";
       }
 
-      let formatted = `📦 **Brand List** (Total: ${total})\n\n`;
+      let formatted = ` Brand List (Total: ${total})`;
       list.forEach((item, index) => {
         formatted += `${index + 1}. **${item.Name}** (id: ${item._id})\n`;
       });
@@ -169,16 +169,16 @@ const brandDropdownTool = tool(
         const brands = response.data.data.map(item => item.Name) || [];
 
         if (brands.length === 0) {
-          return "⚠️ No brands found in your inventory.";
+          return " No brands found in your inventory.";
         }
 
-        return "🟢 Available Brands:\n" + brands.map(b => `• ${b}`).join("\n");
+        return " Available Brands:\n" + brands.map(b => `• ${b}`).join("\n");
       } else {
-        return `⚠️ Unable to fetch brand list. Server says: ${response.data.message}`;
+        return ` Unable to fetch brand list. Server says: ${response.data.message}`;
       }
     } catch (err) {
-      console.error("❌ brandDropdownTool Error:", err.response?.data || err);
-      return `❌ Failed to load brands. Error: ${err.response?.data?.message || err.message}`;
+      console.error(" brandDropdownTool Error:", err.response?.data || err);
+      return ` Failed to load brands. Error: ${err.response?.data?.message || err.message}`;
     }
   },
   {

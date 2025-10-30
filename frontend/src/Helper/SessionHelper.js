@@ -23,9 +23,21 @@ class SessionHelper{
     getOTP(){
         return localStorage.getItem("OTP")
     }
+
+     // ✅ ADD THESE
+    setThreadId(thread_id){
+        localStorage.setItem("thread_id", thread_id)
+    }
+    getThreadId(){
+        return localStorage.getItem("thread_id")
+    }
+
+
+
+
     removeSessions=()=>{
         localStorage.clear();
         window.location.href="/login"
     }
 }
-export const {setEmail,getEmail,setOTP,getOTP,setToken,getToken,setUserDetailsLocal,getUserDetailsLocal,removeSessions}=new SessionHelper();
+export const {setEmail,getEmail,setOTP,getOTP,setToken,getToken,setUserDetailsLocal,getUserDetailsLocal,removeSessions,setThreadId,getThreadId}=new SessionHelper();
