@@ -24,7 +24,7 @@ function LoginComponent() {
     setIsLoading(false);
 
     if (result === true) {
-      SuccessToast("Login Successful!");
+      
       window.location.href = "/"; // ✅ redirect immediately after login
     } else {
       ErrorToast("Login failed. Please check your credentials.");
