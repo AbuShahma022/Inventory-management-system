@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CategoryCreate, CategoryUpdate, CategoryDetailsByID } from "../../APIRequest/CategoryAPI";
-import { ErrorToast, SuccessToast, IsEmpty } from "../../Helper/FormHelper";
+import { ErrorToast, IsEmpty } from "../../Helper/FormHelper";
 import { useParams, useNavigate } from "react-router-dom";
 
 function CategoryCreateUpdateComponent() {
@@ -39,7 +39,7 @@ function CategoryCreateUpdateComponent() {
     }
 
     if (result === true) {
-      SuccessToast(id ? "Category Updated" : "Category Created");
+    
         if (id) {
     // If updating → Go back to list page
     navigate("/category/list");

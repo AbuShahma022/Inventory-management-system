@@ -5,7 +5,7 @@ import {
   ExpenseTypeDetailsByID,
   ExpenseTypeUpdate,
 } from "../../APIRequest/ExpenseTypeAPI";
-import { ErrorToast, SuccessToast, IsEmpty } from "../../Helper/FormHelper";
+import { ErrorToast, IsEmpty } from "../../Helper/FormHelper";
 
 function ExpenseTypeCreateUpdateComponent() {
   const { id } = useParams(); // optional id for edit
@@ -47,7 +47,7 @@ function ExpenseTypeCreateUpdateComponent() {
         // Create
         const result = await ExpenseTypeCreate(formData);
         if (result === true) {
-          SuccessToast("Expense Type Created Successfully");
+          
           // stay on page; reset form
           setFormData({ Name: "" });
         }
@@ -55,7 +55,7 @@ function ExpenseTypeCreateUpdateComponent() {
         // Update
         const result = await ExpenseTypeUpdate(id, formData);
         if (result === true) {
-          SuccessToast("Expense Type Updated Successfully");
+          
           navigate("/expense/type/list");
         }
       }

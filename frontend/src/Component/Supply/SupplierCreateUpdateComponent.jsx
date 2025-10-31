@@ -5,7 +5,7 @@ import {
   SupplyDetailsByID,
   SupplyUpdate,
 } from "../../APIRequest/SupplyAPI.js";
-import { ErrorToast, SuccessToast, IsEmpty } from "../../Helper/FormHelper.js";
+import { ErrorToast, IsEmpty } from "../../Helper/FormHelper.js";
 
 function SupplierCreateUpdateComponent() {
   const { id } = useParams(); // if editing
@@ -55,14 +55,14 @@ function SupplierCreateUpdateComponent() {
       if (id === undefined) {
         const result = await SupplyCreate(formData);
         if (result === true) {
-          SuccessToast("Supplier Created Successfully");
+          
           // Stay on same page, reset form
           setFormData({ Name: "", Address: "", Phone: "", email: "" });
         }
       } else {
         const result = await SupplyUpdate(id, formData);
         if (result === true) {
-          SuccessToast("Supplier Updated Successfully");
+          
           navigate("/supplier/list");
         }
       }

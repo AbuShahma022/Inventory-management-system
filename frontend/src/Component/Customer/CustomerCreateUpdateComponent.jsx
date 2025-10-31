@@ -5,7 +5,7 @@ import {
   CustomerDetailsByID,
   CustomerUpdate,
 } from "../../APIRequest/CustomerAPI";
-import { ErrorToast, SuccessToast, IsEmpty } from "../../Helper/FormHelper";
+import { ErrorToast, IsEmpty } from "../../Helper/FormHelper";
 
 function CustomerCreateUpdateComponent() {
   const { id } = useParams(); // optional id for edit
@@ -54,7 +54,7 @@ function CustomerCreateUpdateComponent() {
         // Create
         const result = await CustomerCreate(formData);
         if (result === true) {
-          SuccessToast("Customer Created Successfully");
+          
           // stay on page; reset form
           setFormData({ Name: "", Address: "", Phone: "", email: "" });
         }
@@ -62,7 +62,7 @@ function CustomerCreateUpdateComponent() {
         // Update
         const result = await CustomerUpdate(id, formData);
         if (result === true) {
-          SuccessToast("Customer Updated Successfully");
+          
           navigate("/customer/list");
         }
       }

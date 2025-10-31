@@ -7,7 +7,7 @@ import {
 } from "../../APIRequest/ProductAPI";
 import { BrandDropDownList } from "../../APIRequest/BrandAPIRequest";
 import { CategoryDropDown } from "../../APIRequest/CategoryAPI";
-import { ErrorToast, SuccessToast, IsEmpty } from "../../Helper/FormHelper";
+import { ErrorToast, IsEmpty } from "../../Helper/FormHelper";
 
 function ProductCreateUpdateComponent() {
   const { id } = useParams();
@@ -71,7 +71,7 @@ function ProductCreateUpdateComponent() {
         // Create
         const result = await ProductCreate(formData);
         if (result === true) {
-          SuccessToast("Product Created Successfully");
+          
           setFormData({
             Name: "",
             Unit: "",
@@ -84,7 +84,7 @@ function ProductCreateUpdateComponent() {
         // Update
         const result = await ProductUpdate(id, formData);
         if (result === true) {
-          SuccessToast("Product Updated Successfully");
+          
           navigate("/product/list");
         }
       }

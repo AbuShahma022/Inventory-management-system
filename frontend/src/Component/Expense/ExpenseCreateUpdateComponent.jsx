@@ -61,7 +61,7 @@ function ExpenseCreateUpdateComponent() {
       // Create Mode
       let result = await ExpenseCreate(formData);
       if (result === true) {
-        SuccessToast("Expense Created Successfully");
+        
         setFormData({ TypeId: "", Amount: "", Note: "" });
       }
     }

@@ -38,13 +38,13 @@ function BrandCreteUpdateComponent() {
     if (isEdit) {
       result = await UpdateBrand({ id, Name: name });
       if (result === true) {
-        SuccessToast("Brand Updated Successfully");
+        
         navigate("/brand/list"); // ✅ Go to list only when editing
       }
     } else {
       result = await CreateBrand({ Name: name });
       if (result === true) {
-        SuccessToast("Brand Created Successfully");
+        
         setName(""); // ✅ Stay on page & clear form
       }
     }
