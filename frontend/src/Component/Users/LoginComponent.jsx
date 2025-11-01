@@ -105,6 +105,22 @@ function LoginComponent() {
               {isLoading ? "Logging in..." : "Log In"}
             </button>
 
+            {/* Demo Login Button */}
+        <button
+           type="button"
+          onClick={() => {
+          emailRef.current.value = "demometa1@gmail.com";
+          passwordRef.current.value = "123456";
+          SuccessToast("Demo credentials filled");
+          }}
+        className="w-full py-3.5 bg-gray-100 text-gray-700 font-semibold text-base 
+       rounded-xl border border-gray-300 hover:bg-gray-200 transition-all duration-200 mb-4 mt-2"
+      >
+         Use Demo Login
+        </button>
+
+
+
             {/* Register Link */}
             <p className="text-center text-sm text-gray-600 mt-6">
               Don’t have an account?{" "}
